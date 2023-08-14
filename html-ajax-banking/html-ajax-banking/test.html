@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List customer</title>
+    <link rel="stylesheet" href="./assets/bootstrap-5.0.2-dist/v5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/fontawesome/v5.14/css/all.min.css">
+    <link rel="stylesheet" href="./assets/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="col-lg-6">
+                <h1>List of customer</h1>
+            </div>
+            <div class="col-lg-6  header-right-button">
+                <a href="#">
+                    <button class="btn btn-outline-light">
+                        <i class="fas fa-history"></i>
+                        Transfer histories
+                    </button>
+                </a>
+                <td>
+                    <button title="Create" type="button" class="btn btn-outline-light create" data-bs-toggle="modal"
+                        data-bs-target="#ModalCreate">
+                        <i class="fas fa-user-plus"></i>
+                        Add New Customer
+                    </button>
+                </td>
+            </div>
+        </header>
+        <div class="content">
+            <table id="tbCustomer" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>FullName</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Balance</th>
+                        <th colspan="5">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal fade" id="ModalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col-lg-6">
+                                <label for="fullNameCre">Full Name</label>
+                                <input type="text" id="fullNameCre" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="emailCreate">Email</label>
+                                <input type="email" id="emailCreate" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-6">
+                                <label for="phoneCre">Phone</label>
+                                <input type="tel" id="phoneCre" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="addressCre">Address</label>
+                                <input type="text" id="addressCre" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div>
+                                <button type="button" id="btnCreate" class="btn btn-outline-primary">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="mdUpdate" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+            data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal update customer</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label for="fullNameUp">Full Name</label>
+                                    <input type="text" id="fullNameUp" class="form-control">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="emailUp">Email</label>
+                                    <input type="email" id="emailUp" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label for="phoneUp">Phone</label>
+                                    <input type="tel" id="phoneUp" class="form-control">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="addressUp">Address</label>
+                                    <input type="text" id="addressUp" class="form-control">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="btnUpdate" class="btn btn-outline-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="mdDeposit" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+            data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal update customer</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <div class="row mt-3">
+                                <div class="col-lg-6">
+                                    <label class="fw-bolder">Customer Id</label>
+                                    <input type="text" class="form-control" th:field="*{customer.id}" readonly>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="customerId">Customer Id</label>
+                                    <input type="text" id="customerId" class="form-control">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="fullNameUp">Full Name</label>
+                                    <input type="text" id="fullNameUp" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-lg-6">
+                                    <label class="fw-bolder">Current Balance ($)</label>
+                                    <input type="text" class="form-control" th:field="*{customer.balance}" readonly>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="fw-bolder">Transaction Amount ($)</label>
+                                    <input type="text" class="form-control" name="transactionAmount">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-lg-3">
+                                    <button type="submit" class="btn btn-outline-success">
+                                        <i class="fas fa-plus"></i>
+                                        Deposit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="btnUpdate" class="btn btn-outline-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.all.min.js"></script>
+        <script src="./assets/jquery/jquery-3.6.4.min.js"></script>
+        <script type="text/javascript" src="./assets/js/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="./assets/js/popper-v1.16.0.min.js"></script>
+        <script type="text/javascript" src="./assets/js/jquery.number.js"></script>
+        <script type="text/javascript" src="./assets/js/app.js"></script>
+        <script>
+            let id = 1;
+            let customers = [
+                new Customer(id++, 'NVA', 'nva@co.cc', '2345', '28 Nguyễn Tri Phương', 0, false),
+                new Customer(id++, 'NVB', 'nvb@co.cc', '3456', '29 Nguyễn Tri Phương', 0, false)
+            ];
+            let tbody = $('#tbCustomer tbody');
+            function renderCustomer(obj) {
+                return `
+                <tr id='tr_${obj.id}'>
+                    <td>${obj.id}</td>
+                    <td>${obj.fullName}</td>
+                    <td>${obj.email}</td>
+                    <td>${obj.phone}</td>
+                    <td>${obj.address}</td>
+                    <td>${obj.balance}</td>
+                    <td>
+                        <button class='btn btn-outline-secondary edit' data-id='${obj.id}'>
+                             <i class="fas fa-pencil-alt"></i>
+                         </button>
+                    </td>
+                    <td>
+                         <button class="btn btn-outline-success deposit" data-id='${obj.id}' >
+                             <i class="fas fa-plus"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-primary withdraw" data-id='${obj.id}' >
+                             <i class="fas fa-minus"></i>
+                      </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-warning transfer" data-id='${obj.id}' >
+                            <i class="fas fa-exchange-alt"></i>
+                         </button>
+                    </td>
+                    <td>
+                          <button class='btn btn-outline-danger delete' data-id='${obj.id}'>
+                            <i class="fas fa-ban"></i>
+                      </button>
+                    </td>
+                </tr>
+            `;
+            }
+            function getAllCustomers() {
+                customers.forEach((customer) => {
+                    let str = renderCustomer(customer);
+                    tbody.prepend(str);
+                });
+                addEventEdit();
+                addEventDeposit();
+                addEventDelete();
+            }
+            getAllCustomers();
+            function getCustomerById(customerId) {
+                return customers.find(item => item.id == customerId);
+            }
+            function addEventEdit() {
+                $('.edit').on('click', function () {
+                    customerId = $(this).data('id');
+                    let customer = getCustomerById(customerId);
+                    if (customer) {
+                        $('#fullNameUp').val(customer.fullName);
+                        $('#emailUp').val(customer.email);
+                        $('#phoneUp').val(customer.phone);
+                        $('#addressUp').val(customer.address);
+                        $('#mdUpdate').modal('show');
+                    }
+                });
+            }
+            function addEventDeposit() {
+                $('.deposit').on('click', function () {
+                    customerId = $(this).data('id');
+                    let customer = getCustomerById(customerId);
+                    if (customer) {
+                        $('#fullNameDeposit').text(customer.fullName);
+                        $('#customerIdDeposit').val(customerId);
+                        $('#depositAmount').val('');
+                        $('#mdDeposit').modal('show');
+                    }
+                });
+                $('#depositForm').on('submit', function (e) {
+                    e.preventDefault();
+                    let customerId = $('#customerIdDeposit').val();
+                    let depositAmount = parseFloat($('#depositAmount').val());
+                    let customer = getCustomerById(customerId);
+                    if (customer) {
+                        customer.balance += depositAmount;
+                        $('#balanceDisplay').text(customer.balance);
+                        $('#mdDeposit').modal('hide');
+                    }
+                });
+            }
+            function addEventDelete() {
+                $('.delete').on('click', function () {
+                    customerId = $(this).data('id');
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085D6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            customers = customers.filter(item => item.id != customerId);
+                            $('#tr_' + customerId).remove();
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Your work has been saved',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                    })
+                })
+            }
+            $('#btnCreate').on('click', () => {
+                let fullName = $('#fullNameCre').val();
+                let email = $('#emailCre').val();
+                let phone = $('#phoneCre').val();
+                let address = $('#addressCre').val();
+                let balance = 0
+                let customer = {
+                    id,
+                    fullName,
+                    email,
+                    phone,
+                    address,
+                    balance,
+                }
+                ++id;
+                customers.push(customer);
+                let str = renderCustomer(customer);
+                $('#tbCustomer tbody').prepend(str);
+                addEventEdit();
+                addEventDeposit();
+                addEventDelete();
+            })
+            $('#btnUpdate').on('click', () => {
+                let fullName = $('#fullNameUp').val();
+                let email = $('#emailUp').val();
+                let phone = $('#phoneUp').val();
+                let address = $('#addressUp').val();
+                let balance = 0;
+                let deleted = false;
+                let customer = {
+                    id: customerId,
+                    fullName,
+                    email,
+                    phone,
+                    address,
+                    balance,
+                    deleted
+                }
+                handleUpdateCustomer(customer).then((data) => {
+                    let str = renderCustomer(data);
+                    $('#tr_' + customerId).replaceWith(str);
+                    addEventEdit();
+                    addEventDelete();
+                    $('#mdUpdate').modal('hide');
+                })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            })
+            function handleUpdateCustomer(obj) {
+                return new Promise((resolve, reject) => {
+                    const index = customers.findIndex(item => item.id === obj.id);
+                    if (index === -1) {
+                        reject(new Error('Customer not found'));
+                        return;
+                    }
+                    customers[index].fullName = obj.fullName;
+                    customers[index].email = obj.email;
+                    customers[index].phone = obj.phone;
+                    customers[index].address = obj.address;
+                    resolve(customers[index]);
+                });
+            }
+        </script>
+</body>
+
+</html>
